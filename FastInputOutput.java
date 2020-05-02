@@ -1,4 +1,47 @@
-static class Print
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+    
+    public static void main(String[] args) throws IOException
+    {
+        Scan sc = new Scan();
+        Print print=new Print();
+        BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+        int t=sc.scanInt();
+        while(t-->0){
+            int n=sc.scanInt();
+		    int q=sc.scanInt();
+		    String str=sc.scanString();
+		    int[] freq=new int[27];
+		    int max=0;
+		    for(int i=0;i<n;i++){
+		        freq[str.charAt(i)-'a']++;
+		        if(freq[str.charAt(i)-'a']>max) max=freq[str.charAt(i)-'a'];
+		    }
+		    for(int i=0;i<q;i++){
+		        int temp=sc.scanInt();
+		        int count=0;
+		        if(temp>=max) bw.append(0+"\n");
+		        else{
+		            for(int j=0;j<27;j++){
+		                count=count+(freq[j]-temp>=0?freq[j]-temp:0);
+		            }
+		            bw.append(count+"\n");
+		        }
+		    }
+        }
+        bw.close();
+    }
+    
+    /*BufferedWriter with scanInt, scanDouble,scanString*/
+	
+    static class Print
     {
         private final OutputStream out;
         /*public Print(OutputStream outputStream)
@@ -135,55 +178,6 @@ static class Print
             return false;
         }
     }
-    public static void main(String[] args) throws IOException
-    {
-        Scan scn = new Scan();
-        Print print=new Print();
-        BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
-        int t=scn.scanInt();
-        while(t-->0){
-            int n=scn.scanInt();
-            int[] arr=new int[n];
-            for(int i=0;i<n;i++){
-                arr[i]=scn.scanInt();
-            }
-            int q=scn.scanInt();
-            while(q-->0){
-                int l=scn.scanInt()-1;
-                int r=scn.scanInt()-1;
-                int point=-1;
-                int count=0;
-                HashMap<Integer,Integer> map=new HashMap<>();
-                for(int i=l;i<=r;i++){
-                    if(map.containsKey(arr[i])){
-                        point=arr[i];
-                        map.put(arr[i],map.get(arr[i])+1);
-                    }
-                    else map.put(arr[i],1);
-                }
-                ArrayList<Integer> ar1 =new ArrayList<>(map.values());
-                for(int val:ar1){
-                    if(val>1){
-                        count++;
-                    }
-                }
-                if(count>2){
-                    bw.append("0\n");
-                    continue;
-                }
-                else if(count==1){
-                    if(map.size()%2==0){
-                       bw.append(map.get(point)+"\n");
-                    }
-                    else bw.append("1\n");
-                }
-                else {
-                    if(map.size()%2==0){
-                        bw.append("0\n");
-                    }
-                    else bw.append(map.size()+"\n");
-                }
-            }
-        }
-        bw.close();
-    }
+    
+}
+
